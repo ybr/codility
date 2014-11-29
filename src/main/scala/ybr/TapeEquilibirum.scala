@@ -4,18 +4,17 @@ import scala.collection.JavaConversions._
 
 object TapeEquilibrium {
     def solution(A: Array[Int]): Int = {
-        var lsum = A.head
-        var rsum = A.tail.foldLeft(0)(_ + _)
+        val lsum = A.head
+        val rsum = A.tail.foldLeft(0)(_ + _)
+        val diff = Math.abs(lsum - rsum)
 
-        var diff = Math.abs(lsum - rsum)
-
-        for(i <- 1 until A.length - 1) {
-            lsum += A(i)
-            rsum -= A(i)
-            val newDiff = Math.abs(lsum - rsum)
-            if(newDiff < diff) diff = newDiff
+        val response = A.tail.dropRight(1).foldLeft((lsum, rsum, diff)) { (prev, curr) =>
+            val (prevLsum, prevRsum, prevDiff) = prev
+            val lsum = prevLsum + curr
+            val rsum = prevRsum - curr
+            (lsum, rsum, Math.min(Math.abs(lsum - rsum), prevDiff))
         }
 
-        diff
+        response._3
     }
 }
