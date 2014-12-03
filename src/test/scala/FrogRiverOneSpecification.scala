@@ -4,7 +4,9 @@ import org.scalacheck._
 import org.scalacheck.Prop.{forAll, BooleanOperators}
 
 object FrogRiverOneSpecification extends Properties("FrogRiverOne") {
-  property("codility example") = Prop.?=(FrogRiverOne.solution(5, Array(1, 3, 1, 4, 2, 3, 5, 4)), 6)
+  property("codility example") = Prop {
+    FrogRiverOne.solution(5, Array(1, 3, 1, 4, 2, 3, 5, 4)) == 6
+  }
 
   property("path exists") = forAll(X, pathGenerator) { (x: Int, a: List[Int]) =>
     FrogRiverOne.solution(x, a.toArray) != -1 ==> (a.length > 0)
