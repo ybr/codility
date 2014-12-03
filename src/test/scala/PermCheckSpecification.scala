@@ -2,7 +2,6 @@ package ybr
 
 import org.scalacheck._
 import org.scalacheck.Prop.forAll
-import org.scalacheck.Arbitrary._
 
 object PermCheckSpecification extends Properties("PermCheck") {
   property("solution") = forAll(permGenerator) { (a: List[Int]) =>
